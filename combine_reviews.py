@@ -8,15 +8,14 @@ def load_reviews_from_folder(folder, label):
             reviews.append((file.read(), label))
     return reviews
 
-# Load positive and negative reviews
-pos_reviews = load_reviews_from_folder('aclImdb/train/pos', 'Positive')
-neg_reviews = load_reviews_from_folder('aclImdb/train/neg', 'Negative')
+# Update the paths to point to your actual dataset location
+pos_reviews = load_reviews_from_folder('C:/HjemmeKode/IMDB Dataset/aclImdb/train/pos', 'Positive')
+neg_reviews = load_reviews_from_folder('C:/HjemmeKode/IMDB Dataset/aclImdb/train/neg', 'Negative')
 
-# Combine all reviews into a DataFrame
 all_reviews = pos_reviews + neg_reviews
 df = pd.DataFrame(all_reviews, columns=['Text', 'Sentiment'])
 
-# Save to CSV in Data folder
+# Save to CSV inside your project Data folder
 df.to_csv('Data/imdb_reviews.csv', index=False)
 
 print("Dataset combined and saved successfully!")
