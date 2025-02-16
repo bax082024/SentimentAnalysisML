@@ -4,6 +4,15 @@ using System;
 
 namespace SentimentAnalysisML
 {
+    public class SentimentData
+    {
+        [LoadColumn(0)] // Text column
+        public string Text { get; set; }
+
+        [LoadColumn(1)] // Sentiment label
+        public string Sentiment { get; set; }
+    }
+
 
 
 }
