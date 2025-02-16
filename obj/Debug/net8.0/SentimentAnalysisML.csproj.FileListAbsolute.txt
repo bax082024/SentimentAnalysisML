@@ -1,0 +1,5 @@
+C:\HjemmeKode\ML.NET\SentimentAnalysisML\SentimentAnalysisML\obj\Debug\net8.0\SentimentAnalysisML.csproj.AssemblyReference.cache
+C:\HjemmeKode\ML.NET\SentimentAnalysisML\SentimentAnalysisML\obj\Debug\net8.0\SentimentAnalysisML.GeneratedMSBuildEditorConfig.editorconfig
+C:\HjemmeKode\ML.NET\SentimentAnalysisML\SentimentAnalysisML\obj\Debug\net8.0\SentimentAnalysisML.AssemblyInfoInputs.cache
+C:\HjemmeKode\ML.NET\SentimentAnalysisML\SentimentAnalysisML\obj\Debug\net8.0\SentimentAnalysisML.AssemblyInfo.cs
+C:\HjemmeKode\ML.NET\SentimentAnalysisML\SentimentAnalysisML\obj\Debug\net8.0\SentimentAnalysisML.csproj.CoreCompileInputs.cache

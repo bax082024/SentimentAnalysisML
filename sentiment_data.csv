@@ -1,0 +1,7 @@
+﻿Text,Sentiment
+"This is a great product",Positive
+"I love this!",Positive
+"Not what I expected",Negative
+"I am very happy with this purchase",Positive
+"This is terrible",Negative
+"I will never buy this again",Negative
