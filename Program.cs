@@ -43,7 +43,10 @@ namespace SentimentAnalysisML
             var dataPipeline = mlContext.Transforms.Text.NormalizeText("CleanedText", nameof(SentimentData.Text),
                 caseMode: TextNormalizingEstimator.CaseMode.Lower,
                 keepNumbers: false, keepPunctuations: false, keepDiacritics: false)
-                .Append(mlContext.Transforms.Text.RemoveStopWords("CleanedText"))
+                .Append(mlContext.Transforms.Text.TokenizeIntoWords("TokenizedText", "CleanedText"))
+                .Append(mlContext.Transforms.Text.RemoveStopWords("TokenizedText"))
+                .Append(mlContext.Transforms.Text.FeaturizeText("Features", "TokenizedText"))
+
                 .Append(mlContext.Transforms.Text.FeaturizeText("Features", "CleanedText"))
                 .Append(mlContext.Transforms.Conversion.MapValueToKey("Label", nameof(SentimentData.Sentiment)))
                 .Append(mlContext.Transforms.NormalizeMinMax("Features"))
