@@ -41,6 +41,8 @@ namespace SentimentAnalysisML
 
             var trainingPipeline = dataPipeline.Append(trainer);
 
+            var trainedModel = trainingPipeline.Fit(dataView);
+
         }
     }
 
