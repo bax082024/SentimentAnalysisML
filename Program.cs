@@ -36,7 +36,8 @@ namespace SentimentAnalysisML
                 .Append(mlContext.Transforms.NormalizeMinMax("Features"))
                 .AppendCacheCheckpoint(mlContext);
 
-
+            var trainer = mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy("Label", "Features")
+                .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
 
         }
     }
