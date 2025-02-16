@@ -52,6 +52,9 @@ namespace SentimentAnalysisML
             Console.WriteLine($"Accuracy: {metrics.MicroAccuracy:P2}");
             Console.WriteLine($"Log Loss: {metrics.LogLoss}");
 
+
+            var predictionEngine = mlContext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(trainedModel);
+
         }
     }
 
