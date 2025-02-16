@@ -13,6 +13,12 @@ namespace SentimentAnalysisML
         public string Sentiment { get; set; } = String.Empty;
     }
 
+    public class SentimentPrediction
+    {
+        [ColumnName("PredictedLabel")] // Prediction output
+        public string Prediction { get; set; }
+    }
+
 
 
 }
