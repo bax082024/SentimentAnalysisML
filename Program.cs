@@ -19,6 +19,19 @@ namespace SentimentAnalysisML
         public string Prediction { get; set; } = String.Empty;
     }
 
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Step 1: Create ML Context
+            MLContext mlContext = new MLContext();
+
+            // Step 2: Load Data
+            IDataView dataView = mlContext.Data.LoadFromTextFile<SentimentData>("sentiment_data.csv", separatorChar: ',', hasHeader: true);
+
+            Console.WriteLine("Data Loaded Successfully!");
+        }
+    }
 
 
 }
