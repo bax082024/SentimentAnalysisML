@@ -27,8 +27,16 @@ namespace SentimentAnalysisML
             MLContext mlContext = new MLContext();
 
             // Step 2: Load Data
-            IDataView dataView = mlContext.Data.LoadFromTextFile<SentimentData>("Data/imdb_reviews.csv", separatorChar: ',', hasHeader: true);
+            IDataView dataView = mlContext.Data.LoadFromTextFile<SentimentData>(
+                path: "Data/imdb_reviews.csv",
+                separatorChar: ',',
+                hasHeader: true,
+                allowQuoting: true,
+                allowSparse: false,
+                trimWhitespace: true
+            );
 
+            dataView = mlContext.Data.Cache(dataView);
 
             Console.WriteLine("Data Loaded Successfully!");
 
