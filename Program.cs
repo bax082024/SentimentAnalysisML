@@ -55,6 +55,20 @@ namespace SentimentAnalysisML
 
             var predictionEngine = mlContext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(trainedModel);
 
+            while (true)
+            {
+                Console.Write("Enter text to analyze sentiment (or type 'exit' to quit): ");
+                var inputText = Console.ReadLine();
+
+                if (inputText?.ToLower() == "exit")
+                    break;
+
+                var newSample = new SentimentData { Text = inputText };
+                var prediction = predictionEngine.Predict(newSample);
+
+                Console.WriteLine($"\nText: {inputText}\nPredicted Sentiment: {prediction.Prediction}\n");
+            }
+
         }
     }
 
