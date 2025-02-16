@@ -30,6 +30,14 @@ namespace SentimentAnalysisML
             IDataView dataView = mlContext.Data.LoadFromTextFile<SentimentData>("sentiment_data.csv", separatorChar: ',', hasHeader: true);
 
             Console.WriteLine("Data Loaded Successfully!");
+
+            var dataPipeline = mlContext.Transforms.Text.FeaturizeText("Features", nameof(SentimentData.Text))
+                .Append(mlContext.Transforms.Conversion.MapValueToKey("Label", nameof(SentimentData.Sentiment)))
+                .Append(mlContext.Transforms.NormalizeMinMax("Features"))
+                .AppendCacheCheckpoint(mlContext);
+
+
+
         }
     }
 
