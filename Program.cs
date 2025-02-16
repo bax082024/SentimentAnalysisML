@@ -45,6 +45,13 @@ namespace SentimentAnalysisML
 
             Console.WriteLine("Model Trained Successfully!");
 
+            // Evaluate the model
+            var predictions = trainedModel.Transform(dataView);
+            var metrics = mlContext.MulticlassClassification.Evaluate(predictions, "Label", "Score", "PredictedLabel");
+
+            Console.WriteLine($"Accuracy: {metrics.MicroAccuracy:P2}");
+            Console.WriteLine($"Log Loss: {metrics.LogLoss}");
+
         }
     }
 
