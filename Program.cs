@@ -1,21 +1,23 @@
 ﻿using Microsoft.ML;
 using Microsoft.ML.Data;
+using Microsoft.ML.Transforms.Text;
+using Microsoft.ML.Transforms;
 using System;
 
 namespace SentimentAnalysisML
 {
     public class SentimentData
     {
-        [LoadColumn(0)] // Text column
+        [LoadColumn(0)]
         public string Text { get; set; } = String.Empty;
 
-        [LoadColumn(1)] // Sentiment label
+        [LoadColumn(1)]
         public string Sentiment { get; set; } = String.Empty;
     }
 
     public class SentimentPrediction
     {
-        [ColumnName("PredictedLabel")] // Prediction output
+        [ColumnName("PredictedLabel")]
         public string Prediction { get; set; } = String.Empty;
     }
 
@@ -23,10 +25,8 @@ namespace SentimentAnalysisML
     {
         static void Main(string[] args)
         {
-            // Step 1: Create ML Context
             MLContext mlContext = new MLContext();
 
-            // Step 2: Load Data
             IDataView dataView = mlContext.Data.LoadFromTextFile<SentimentData>(
                 path: "Data/imdb_reviews.csv",
                 separatorChar: ',',
@@ -40,10 +40,15 @@ namespace SentimentAnalysisML
 
             Console.WriteLine("Data Loaded Successfully!");
 
-            var dataPipeline = mlContext.Transforms.Text.FeaturizeText("Features", nameof(SentimentData.Text))
+            var dataPipeline = mlContext.Transforms.Text.NormalizeText("CleanedText", nameof(SentimentData.Text),
+                caseMode: TextNormalizingEstimator.CaseMode.Lower,
+                keepNumbers: false, keepPunctuations: false, keepDiacritics: false)
+                .Append(mlContext.Transforms.Text.RemoveStopWords("CleanedText"))
+                .Append(mlContext.Transforms.Text.FeaturizeText("Features", "CleanedText"))
                 .Append(mlContext.Transforms.Conversion.MapValueToKey("Label", nameof(SentimentData.Sentiment)))
                 .Append(mlContext.Transforms.NormalizeMinMax("Features"))
                 .AppendCacheCheckpoint(mlContext);
+
 
             var trainer = mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy("Label", "Features")
                 .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
@@ -54,7 +59,6 @@ namespace SentimentAnalysisML
 
             Console.WriteLine("Model Trained Successfully!");
 
-            // Evaluate the model
             var predictions = trainedModel.Transform(dataView);
             var metrics = mlContext.MulticlassClassification.Evaluate(predictions, "Label", "Score", "PredictedLabel");
 
