@@ -43,6 +43,8 @@ namespace SentimentAnalysisML
 
             var trainedModel = trainingPipeline.Fit(dataView);
 
+            Console.WriteLine("Model Trained Successfully!");
+
         }
     }
 
