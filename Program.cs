@@ -39,6 +39,8 @@ namespace SentimentAnalysisML
             var trainer = mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy("Label", "Features")
                 .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
 
+            var trainingPipeline = dataPipeline.Append(trainer);
+
         }
     }
 
